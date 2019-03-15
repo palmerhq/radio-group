@@ -1,0 +1,22 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=development parcel index.html"
+  },
+  "alias": {
+    "@palmerhq/radio-group": "../.",
+    "react": "../node_modules/react/."
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "parcel-bundler": "^1.12.2"
+  },
+  "dependencies": {
+    "formik": "^1.5.1",
+
+    "yup": "^0.27.0"
+  }
+}
