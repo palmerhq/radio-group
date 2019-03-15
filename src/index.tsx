@@ -81,7 +81,6 @@ export const Radio = React.forwardRef<HTMLDivElement | null, RadioProps<any>>(
     const count = otherRadioValues.length - 1;
     React.useEffect(() => {
       if (value === props.value) {
-        console.log('should focus on', ref.current);
         if (maybeOuterRef && maybeOuterRef.current !== null) {
           maybeOuterRef.current.focus();
         } else if (ref.current !== null) {
@@ -94,25 +93,18 @@ export const Radio = React.forwardRef<HTMLDivElement | null, RadioProps<any>>(
       event => {
         event.persist();
         var flag = false;
-        console.log(index, count);
-        console.log(event.target);
         function setPrevious() {
           if (index === 0) {
-            console.log('setPrevious (i == 0)', otherRadioValues[count]);
             setChecked(otherRadioValues[count]);
           } else {
-            console.log('setPrevious (i != 0)', otherRadioValues[index - 1]);
             setChecked(otherRadioValues[index - 1]);
           }
         }
 
         function setNext() {
-          console.log('index: ' + index, 'count: ' + count);
           if (index === count) {
-            console.log('setNext (i == count)', otherRadioValues[0]);
             setChecked(otherRadioValues[0]);
           } else {
-            console.log('setNext (i != count)', otherRadioValues[index + 1]);
             setChecked(otherRadioValues[index + 1]);
           }
         }
