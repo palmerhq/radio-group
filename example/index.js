@@ -23,7 +23,7 @@ function App() {
   return (
     <div>
       <Formik
-        initialValues={{ email: '', color: '' }}
+        initialValues={{ color: '' }}
         validationSchema={Yup.object().shape({
           color: Yup.string().required(),
         })}
@@ -37,11 +37,10 @@ function App() {
         {({ values, setFieldValue }) => (
           <div>
             <Form>
-              <h3 id="color">Color</h3>
               <FRadioGroup name="color">
-                <Radio value="blue">Blue</Radio>
-                <Radio value="red">Red</Radio>
-                <Radio value="green">Green</Radio>
+                <Radio value="red">Foo</Radio>
+                <Radio value="green">Biz</Radio>
+                <Radio value="blue">Boop</Radio>
               </FRadioGroup>
             </Form>
           </div>
