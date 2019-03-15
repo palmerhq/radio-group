@@ -1,15 +1,32 @@
 {
   "name": "@palmerhq/radio-group",
   "version": "0.1.0",
+  "author": "Jared Palmer <jared@palmer.net>",
   "main": "dist/radio-group.js",
   "umd:main": "dist/radio-group.umd.js",
   "module": "dist/radio-group.esm.js",
   "source": "src/index.tsx",
+  "repository": "palmerhq/radio-group",
+  "typings": "index.d.ts",
+  "keywords": [
+    "react",
+    "react-dom",
+    "a11y",
+    "radio group",
+    "radio button",
+    "forms",
+    "inputs",
+    "formik"
+  ],
   "scripts": {
     "prepare": "npm run build",
     "test": "echo \"yolo\"",
     "build": "microbundle --typescript --external=react --global=react --jsx=react && cp ./dist/src/* ./dist/ && rm -rf ./dist/src",
     "start": "microbundle watch --typescript --external=react --global=react --jsx=react "
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
