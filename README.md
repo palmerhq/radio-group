@@ -7,20 +7,24 @@ An accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-ari
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
   - [Usage with Formik v2](#usage-with-formik-v2)
-- [Overriding Styles](#overriding-styles)
 - [API Reference](#api-reference)
   - [`<RadioGroup />`](#radiogroup-)
     - [`labelledBy?: string`](#labelledby-string)
     - [`onChange: (value: any) => void`](#onchange-value-any--void)
     - [`children: React.ComponentType<RadioProps>[]`](#children-reactcomponenttyperadioprops)
-  - [`<Radio>`](#radio)
     - [`value: any`](#value-any)
+  - [`<Radio>`](#radio)
+    - [`value: any`](#value-any-1)
+    - [`onFocus?: () => void`](#onfocus---void)
+    - [`onBlur?: () => void`](#onblur---void)
+  - [Overriding Styles](#overriding-styles)
 - [Accessibility Features](#accessibility-features)
 - [Keyboard Support](#keyboard-support)
-- [Role, Property, State, and Tabindex Attributes](#role-property-state-and-tabindex--attributes)
+- [Role, Property, State, and Tabindex  Attributes](#role-property-state-and-tabindex--attributes)
 - [Authors](#authors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -46,7 +50,11 @@ function App() {
   return (
     <>
       <h3 id="color">Color</h3>
-      <RadioGroup labelledBy="color" onChange={value => setValue(value)}>
+      <RadioGroup
+        labelledBy="color"
+        value={value}
+        onChange={value => setValue(value)}
+      >
         <Radio value="blue">Blue</Radio>
         <Radio value="red">Red</Radio>
         <Radio value="green">Green</Radio>
@@ -104,7 +112,90 @@ function App() {
 }
 ```
 
-## Overriding Styles
+## API Reference
+
+### `<RadioGroup />`
+
+This renders a `div` and will pass through all props to the DOM element. It's children must be `<Radio>` components.
+
+#### `labelledBy?: string`
+
+This should match the `id` you used to label the radio group.
+
+```tsx
+<h3 id="color">Color</h3>
+<RadioGroup labelledBy="color">
+  {/* ... */}
+</RadioGroup>
+```
+
+#### `onChange: (value: any) => void`
+
+A callback function that will be fired with the `value` of the newly selected item.
+
+```tsx
+import * as React from 'react';
+import { RadioGroup, Radio } from '@palmerhq/radio-button';
+import '@palmerhq/radio-button/styles.css'; // use the default styles
+
+function App() {
+  const [value, setValue] = React.useState<string | undefined>();
+
+  return (
+    <>
+      <h3 id="color">Color</h3>
+      <RadioGroup
+        labelledBy="color"
+        value={value}
+        onChange={value => setValue(value)}
+      >
+        <Radio value="blue">Blue</Radio>
+        <Radio value="red">Red</Radio>
+        <Radio value="green">Green</Radio>
+      </RadioGroup>
+    </>
+  );
+}
+```
+
+#### `children: React.ComponentType<RadioProps>[]`
+
+**Required**
+
+The children of a `<RadioGroup>` can **ONLY** be `<Radio>` components. In order to support compliant keyboard behavior, each sibling must know the value of the whole group and so `React.Children.map` is used internally.
+
+```tsx
+<h3 id="color">Color</h3>
+<RadioGroup labelledBy="color">
+  {/* ... */}
+</RadioGroup>
+```
+
+#### `value: any`
+
+**Required**
+
+The current value of the radio group. This is shallowly compared to each `value` prop of the child `<Radio>` components to determine which item is active.
+
+### `<Radio>`
+
+This renders a `div` and will pass through all props to the DOM element.
+
+#### `value: any`
+
+**Required**
+
+The value of the radio button. This will be set / passed back to the `<RadioGroup onChange>` when the item is selected.
+
+#### `onFocus?: () => void`
+
+Callback function for when the item is focused
+
+#### `onBlur?: () => void`
+
+Callback function for when the item is blurred
+
+### Overriding Styles
 
 These are the default styles. Copy and paste the following into your app to customize them.
 
@@ -199,65 +290,6 @@ These are the default styles. Copy and paste the following into your app to cust
   background-color: hsl(216, 80%, 92%);
 }
 ```
-
-## API Reference
-
-### `<RadioGroup />`
-
-#### `labelledBy?: string`
-
-This should match the `id` you used to label the radio group.
-
-```tsx
-<h3 id="color">Color</h3>
-<RadioGroup labelledBy="color">
-  {/* ... */}
-</RadioGroup>
-```
-
-#### `onChange: (value: any) => void`
-
-A callback function that will be fired with the `value` of the newly selected item.
-
-```tsx
-import * as React from 'react';
-import { RadioGroup, Radio } from '@palmerhq/radio-button';
-import '@palmerhq/radio-button/styles.css'; // use the default styles
-
-function App() {
-  const [value, setValue] = React.useState<string | undefined>();
-
-  return (
-    <>
-      <h3 id="color">Color</h3>
-      <RadioGroup labelledBy="color" onChange={value => setValue(value)}>
-        <Radio value="blue">Blue</Radio>
-        <Radio value="red">Red</Radio>
-        <Radio value="green">Green</Radio>
-      </RadioGroup>
-    </>
-  );
-}
-```
-
-#### `children: React.ComponentType<RadioProps>[]`
-
-**Required**
-
-The children of a `<RadioGroup>` can **ONLY** be `<Radio>` components. In order to support compliant keyboard behavior, each sibling must know the value of the whole group and so `React.Children.map` is used internally.
-
-```tsx
-<h3 id="color">Color</h3>
-<RadioGroup labelledBy="color">
-  {/* ... */}
-</RadioGroup>
-```
-
-### `<Radio>`
-
-#### `value: any`
-
-Each
 
 ## Accessibility Features
 
