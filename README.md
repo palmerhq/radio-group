@@ -1,8 +1,10 @@
+
+
 # `@palmerhq/radio-group`
 
 845B Accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-aria-practices-1.1/#radiobutton) React component.
 
-![Screenshot](./.assets/demo.gif)
+<img align="center" src="./.assets/demo.gif" width="400px" alt="Radio group demo" />
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
