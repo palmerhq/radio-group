@@ -21,7 +21,6 @@ function FRadioGroup(props) {
 
 function App() {
   return (
-    <div>
       <Formik
         initialValues={{ color: '' }}
         validationSchema={Yup.object().shape({
@@ -34,19 +33,14 @@ function App() {
           }, 500);
         }}
       >
-        {({ values, setFieldValue }) => (
-          <div>
-            <Form>
-              <FRadioGroup name="color">
-                <Radio value="red">Foo</Radio>
-                <Radio value="green">Biz</Radio>
-                <Radio value="blue">Boop</Radio>
-              </FRadioGroup>
-            </Form>
-          </div>
-        )}
+        <Form>
+          <FRadioGroup name="color">
+            <Radio value="red">Foo</Radio>
+            <Radio value="green">Biz</Radio>
+            <Radio value="blue">Boop</Radio>
+          </FRadioGroup>
+        </Form>
       </Formik>
-    </div>
   );
 }
 
