@@ -21,6 +21,7 @@ An accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-ari
     - [`value: any`](#value-any-1)
     - [`onFocus?: () => void`](#onfocus---void)
     - [`onBlur?: () => void`](#onblur---void)
+  - [Underlying DOM Structure](#underlying-dom-structure)
   - [Overriding Styles](#overriding-styles)
 - [Accessibility Features](#accessibility-features)
 - [Keyboard Support](#keyboard-support)
@@ -179,7 +180,7 @@ The current value of the radio group. This is shallowly compared to each `value`
 
 ### `<Radio>`
 
-This renders a `div` and will pass through all props to the DOM element.
+This renders a `div` with a data attribute `data-palmerhq-radio` and all the relevant perfect aria attributes. The React component will pass through all props to the DOM element.
 
 #### `value: any`
 
@@ -189,15 +190,33 @@ The value of the radio button. This will be set / passed back to the `<RadioGrou
 
 #### `onFocus?: () => void`
 
-Callback function for when the item is focused
+Callback function for when the item is focused. When focused, a data attribute `data-palmerhq-radio-focus` is set to `"true"`. You can thus apply the selector to manage focus style like so:
+
+```css
+[data-palmerhq-radio][data-palmerhq-radio-focus='true'] {
+   background: blue;
+}
+```
 
 #### `onBlur?: () => void`
 
 Callback function for when the item is blurred
 
+### Underlying DOM Structure
+
+For reference, the underlying HTML DOM structure are all `div`s and looks as follows.
+
+```html
+<div role="radiogroup" aria-labelledby="color"  data-palmerhq-radio-group="true">
+  <div role="radio" tabindex="0" aria-checked="false" data-palmerhq-radio="true" data-palmerhq-radio-focus="false">Red</div>
+  <div role="radio" tabindex="-1" aria-checked="false" data-palmerhq-radio="true" data-palmerhq-radio-focus="false">Green</div>
+  <div role="radio" tabindex="-1" aria-checked="false" data-palmerhq-radio="true" data-palmerhq-radio-focus="false">Blue</div>
+</div>
+```
+
 ### Overriding Styles
 
-These are the default styles. Copy and paste the following into your app to customize them.
+These are the default styles. Copy and paste the following into your app to customize them. 
 
 ```css
 [data-palmerhq-radio-group] {
