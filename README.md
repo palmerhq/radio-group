@@ -2,7 +2,7 @@
 
 An accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-aria-practices-1.1/#radiobutton) React component.
 
-<img align="center" src="./.assets/demo.gif" width="400px" alt="Radio group demo" />
+<img align="center" src="./.assets/demo.gif" width="400px" alt="Radio group demo" style="border: 1px solid #eee" />
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -35,7 +35,11 @@ An accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-ari
 yarn add @palmerhq/radio-group
 ```
 
+Or try it out in your browser on [CodeSandbox](https://codesandbox.io/embed/qxxnwzvy0w)
+
 > Note: This package uses `Array.prototype.findIndex`, so be sure that you have properly polyfilled.
+
+
 
 ## Usage
 
