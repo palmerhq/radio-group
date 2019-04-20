@@ -1,6 +1,6 @@
 {
   "name": "@palmerhq/radio-group",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": "Jared Palmer <jared@palmer.net>",
   "main": "dist/radio-group.js",
   "umd:main": "dist/radio-group.umd.js",
