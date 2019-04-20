@@ -6,6 +6,10 @@
   "umd:main": "dist/radio-group.umd.js",
   "module": "dist/radio-group.esm.js",
   "source": "src/index.tsx",
+  "files": [
+    "styles.css",
+    "dist"
+  ],
   "repository": "palmerhq/radio-group",
   "typings": "index.d.ts",
   "keywords": [

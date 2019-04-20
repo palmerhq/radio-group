@@ -7,7 +7,6 @@ An accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-ari
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
   - [Usage with Formik v2](#usage-with-formik-v2)
@@ -25,7 +24,7 @@ An accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-ari
   - [Overriding Styles](#overriding-styles)
 - [Accessibility Features](#accessibility-features)
 - [Keyboard Support](#keyboard-support)
-- [Role, Property, State, and Tabindex  Attributes](#role-property-state-and-tabindex--attributes)
+- [Role, Property, State, and Tabindex Attributes](#role-property-state-and-tabindex--attributes)
 - [Authors](#authors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -42,8 +41,8 @@ yarn add @palmerhq/radio-group
 
 ```tsx
 import * as React from 'react';
-import { RadioGroup, Radio } from '@palmerhq/radio-button';
-import '@palmerhq/radio-button/styles.css'; // use the default styles
+import { RadioGroup, Radio } from '@palmerhq/radio-group';
+import '@palmerhq/radio-group/styles.css'; // use the default styles
 
 function App() {
   const [value, setValue] = React.useState<string | undefined>();
@@ -70,8 +69,8 @@ function App() {
 ```tsx
 import * as React from 'react';
 import { Formik, Form, useField } from 'formik';
-import { RadioGroup, Radio } from '@palmerhq/radio-button';
-import '@palmerhq/radio-button/styles.css'; // use the default styles
+import { RadioGroup, Radio } from '@palmerhq/radio-group';
+import '@palmerhq/radio-group/styles.css'; // use the default styles
 
 function FRadioGroup(props) {
   const [{ onChange, onBlur, ...field }] = useField(props.name);
@@ -136,8 +135,8 @@ A callback function that will be fired with the `value` of the newly selected it
 
 ```tsx
 import * as React from 'react';
-import { RadioGroup, Radio } from '@palmerhq/radio-button';
-import '@palmerhq/radio-button/styles.css'; // use the default styles
+import { RadioGroup, Radio } from '@palmerhq/radio-group';
+import '@palmerhq/radio-group/styles.css'; // use the default styles
 
 function App() {
   const [value, setValue] = React.useState<string | undefined>();
@@ -194,7 +193,7 @@ Callback function for when the item is focused. When focused, a data attribute `
 
 ```css
 [data-palmerhq-radio][data-palmerhq-radio-focus='true'] {
-   background: blue;
+  background: blue;
 }
 ```
 
@@ -207,16 +206,40 @@ Callback function for when the item is blurred
 For reference, the underlying HTML DOM structure are all `div`s and looks as follows.
 
 ```html
-<div role="radiogroup" aria-labelledby="color"  data-palmerhq-radio-group="true">
-  <div role="radio" tabindex="0" aria-checked="false" data-palmerhq-radio="true" data-palmerhq-radio-focus="false">Red</div>
-  <div role="radio" tabindex="-1" aria-checked="false" data-palmerhq-radio="true" data-palmerhq-radio-focus="false">Green</div>
-  <div role="radio" tabindex="-1" aria-checked="false" data-palmerhq-radio="true" data-palmerhq-radio-focus="false">Blue</div>
+<div role="radiogroup" aria-labelledby="color" data-palmerhq-radio-group="true">
+  <div
+    role="radio"
+    tabindex="0"
+    aria-checked="false"
+    data-palmerhq-radio="true"
+    data-palmerhq-radio-focus="false"
+  >
+    Red
+  </div>
+  <div
+    role="radio"
+    tabindex="-1"
+    aria-checked="false"
+    data-palmerhq-radio="true"
+    data-palmerhq-radio-focus="false"
+  >
+    Green
+  </div>
+  <div
+    role="radio"
+    tabindex="-1"
+    aria-checked="false"
+    data-palmerhq-radio="true"
+    data-palmerhq-radio-focus="false"
+  >
+    Blue
+  </div>
 </div>
 ```
 
 ### Overriding Styles
 
-These are the default styles. Copy and paste the following into your app to customize them. 
+These are the default styles. Copy and paste the following into your app to customize them.
 
 ```css
 [data-palmerhq-radio-group] {
