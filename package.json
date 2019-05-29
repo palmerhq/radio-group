@@ -11,7 +11,7 @@
     "dist"
   ],
   "repository": "palmerhq/radio-group",
-  "typings": "index.d.ts",
+  "typings": "dist/index.d.ts",
   "keywords": [
     "react",
     "react-dom",
