@@ -12,6 +12,7 @@ const codes = {
 };
 
 export interface RadioGroupCtx<V, Siblings = V[]> {
+  autoFocus: boolean;
   value: V;
   otherRadioValues: Siblings;
   setChecked: (value: any) => void;
@@ -27,6 +28,7 @@ export interface RadioProps<V> {
 }
 
 export interface RadioGroupProps<V> {
+  autoFocus?: boolean;
   labelledBy: string;
   children: React.ComponentType<RadioProps<V>>[];
   value: V;
@@ -37,6 +39,7 @@ export function RadioGroup<V>({
   labelledBy,
   children,
   value,
+  autoFocus = false
   ...props
 }: RadioGroupProps<V>) {
   const setChecked = React.useCallback(v => {
@@ -54,6 +57,7 @@ export function RadioGroup<V>({
       value,
       otherRadioValues,
       setChecked,
+      autoFocus,
     }),
     [otherRadioValues, value]
   );
@@ -76,11 +80,11 @@ export const Radio = React.forwardRef<HTMLDivElement | null, RadioProps<any>>(
     const ref = React.useRef<HTMLDivElement | null>(null);
 
     const ctx = React.useContext(RadioGroupContext);
-    const { otherRadioValues, value, setChecked } = ctx;
+    const { otherRadioValues, value, setChecked, autoFocus } = ctx;
     const index = otherRadioValues.findIndex(i => i == props.value);
     const count = otherRadioValues.length - 1;
     React.useEffect(() => {
-      if (value === props.value) {
+      if (autoFocus && value === props.value) {
         if (maybeOuterRef && maybeOuterRef.current !== null) {
           maybeOuterRef.current.focus();
         } else if (ref.current !== null) {
