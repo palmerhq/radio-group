@@ -91,7 +91,7 @@ export const Radio = React.forwardRef<HTMLDivElement | null, RadioProps<any>>(
           ref.current.focus();
         }
       }
-    }, [value, props.value, maybeOuterRef]);
+    }, [autoFocus, value, props.value, maybeOuterRef]);
 
     const handleKeyDown = React.useCallback(
       event => {
