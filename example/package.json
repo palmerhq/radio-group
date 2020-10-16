@@ -4,19 +4,26 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development parcel index.html"
-  },
-  "alias": {
-    "@palmerhq/radio-group": "../.",
-    "react": "../node_modules/react/."
-  },
-  "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "parcel-bundler": "^1.12.2"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "dependencies": {
-    "formik": "^1.5.1",
-
-    "yup": "^0.27.0"
+    "@palmerhq/radio-group": "file:..",
+    "formik": "^2.2.0",
+    "react": ">=16.8.0",
+    "react-app-polyfill": "^1.0.0",
+    "react-dom": ">=16.8.0",
+    "yup": "^0.29.3"
+  },
+  "alias": {
+    "react": "../node_modules/react",
+    "react-dom": "../node_modules/react-dom/profiling",
+    "scheduler/tracing": "../node_modules/scheduler/tracing-profiling"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.8.4",
+    "parcel": "^1.12.3",
+    "typescript": "^3.4.5"
   }
 }

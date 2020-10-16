@@ -7,25 +7,27 @@ An accessible [WAI-ARIA 1.1-compliant Radio Group](https://www.w3.org/TR/wai-ari
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Usage with Formik v2](#usage-with-formik-v2)
-- [API Reference](#api-reference)
-  - [`<RadioGroup />`](#radiogroup-)
-    - [`labelledBy?: string`](#labelledby-string)
-    - [`onChange: (value: any) => void`](#onchange-value-any--void)
-    - [`children: React.ComponentType<RadioProps>[]`](#children-reactcomponenttyperadioprops)
-    - [`value: any`](#value-any)
-  - [`<Radio>`](#radio)
-    - [`value: any`](#value-any-1)
-    - [`onFocus?: () => void`](#onfocus---void)
-    - [`onBlur?: () => void`](#onblur---void)
-  - [Underlying DOM Structure](#underlying-dom-structure)
-  - [Overriding Styles](#overriding-styles)
-- [Accessibility Features](#accessibility-features)
-- [Keyboard Support](#keyboard-support)
-- [Role, Property, State, and Tabindex Attributes](#role-property-state-and-tabindex--attributes)
-- [Authors](#authors)
+- [`@palmerhq/radio-group`](#palmerhqradio-group)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Usage with Formik v2](#usage-with-formik-v2)
+  - [API Reference](#api-reference)
+    - [`<RadioGroup />`](#radiogroup-)
+      - [`labelledBy?: string`](#labelledby-string)
+      - [`onChange: (value: any) => void`](#onchange-value-any--void)
+      - [`children: React.ComponentType<RadioProps>[]`](#children-reactcomponenttyperadioprops)
+      - [`value: any`](#value-any)
+      - [`as?: React.ComponentType`](#as-reactcomponenttype)
+      - [`autoFocus?: boolean`](#autofocus-boolean)
+    - [`<Radio>`](#radio)
+      - [`value: any`](#value-any-1)
+      - [`onFocus?: () => void`](#onfocus---void)
+      - [`onBlur?: () => void`](#onblur---void)
+      - [`as?: React.ComponentType`](#as-reactcomponenttype-1)
+    - [Underlying DOM Structure](#underlying-dom-structure)
+    - [Overriding Styles](#overriding-styles)
+  - [Accessibility Features](#accessibility-features)
+  - [Authors](#authors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -38,8 +40,6 @@ yarn add @palmerhq/radio-group
 Or try it out in your browser on [CodeSandbox](https://codesandbox.io/embed/qxxnwzvy0w)
 
 > Note: This package uses `Array.prototype.findIndex`, so be sure that you have properly polyfilled.
-
-
 
 ## Usage
 
@@ -181,6 +181,14 @@ The children of a `<RadioGroup>` can **ONLY** be `<Radio>` components. In order 
 
 The current value of the radio group. This is shallowly compared to each `value` prop of the child `<Radio>` components to determine which item is active.
 
+#### `as?: React.ComponentType`
+
+Component to use a the wrapper. Default is `<div>`.
+
+#### `autoFocus?: boolean`
+
+Whether to autoFocus the selected radio option.
+
 ### `<Radio>`
 
 This renders a `div` with a data attribute `data-palmerhq-radio` and all the relevant perfect aria attributes. The React component will pass through all props to the DOM element.
@@ -204,6 +212,10 @@ Callback function for when the item is focused. When focused, a data attribute `
 #### `onBlur?: () => void`
 
 Callback function for when the item is blurred
+
+#### `as?: React.ComponentType`
+
+Component to use as radio. Default is `<div>`.
 
 ### Underlying DOM Structure
 
