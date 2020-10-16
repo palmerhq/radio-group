@@ -23,22 +23,29 @@ const RadioGroupContext = React.createContext<RadioGroupCtx<any>>({} as any);
 
 export interface RadioProps<V> {
   value: V;
-  children: any;
+  children: React.ReactNode;
   onFocus?: (e: React.FocusEvent<any>) => void;
   onBlur?: (e: any) => void;
 }
 
-export interface RadioGroupProps<V> {
+export interface RadioGroupProps<V = any> {
   labelledBy: string;
-  children: React.ComponentType<RadioProps<V>>[];
+  children: React.ReactNode;
   value: V;
   onChange: (value: V) => void;
   autoFocus?: boolean;
 }
 
-export const RadioGroup = forwardRefWithAs<RadioGroupProps<any>, 'div'>(
+export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
   function RadioGroup(
-    { labelledBy, children, value, autoFocus = false, as: Comp, ...props },
+    {
+      labelledBy,
+      children,
+      value,
+      autoFocus = false,
+      as: Comp = 'div',
+      ...props
+    },
     ref
   ) {
     const { onChange } = props;
