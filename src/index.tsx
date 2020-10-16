@@ -83,6 +83,8 @@ export const Radio = React.forwardRef<HTMLDivElement | null, RadioProps<any>>(
     const { otherRadioValues, value, setChecked, autoFocus } = ctx;
     const index = otherRadioValues.findIndex(i => i == props.value);
     const count = otherRadioValues.length - 1;
+    const isCurrentRadioSelected = value === props.value;
+
     React.useEffect(() => {
       if (autoFocus && value === props.value) {
         if (maybeOuterRef && maybeOuterRef.current !== null) {
@@ -93,12 +95,13 @@ export const Radio = React.forwardRef<HTMLDivElement | null, RadioProps<any>>(
       }
     }, [value, props.value, maybeOuterRef, autoFocus]);
 
+    const isFirstRadioOption = index === 0;
     const handleKeyDown = React.useCallback(
       event => {
         event.persist();
         var flag = false;
         function setPrevious() {
-          if (index === 0) {
+          if (isFirstRadioOption) {
             setChecked(otherRadioValues[count]);
           } else {
             setChecked(otherRadioValues[index - 1]);
@@ -158,12 +161,15 @@ export const Radio = React.forwardRef<HTMLDivElement | null, RadioProps<any>>(
       }
       setFocus(true);
     }, []);
+
+    const noValueSelected = !value;
+    const tabIndex = isCurrentRadioSelected || (noValueSelected && isFirstRadioOption) ? 0 : -1;
     return (
       <div
         {...props}
         role="radio"
-        tabIndex={value === props.value ? 0 : -1}
-        aria-checked={value === props.value}
+        tabIndex={tabIndex}
+        aria-checked={isCurrentRadioSelected}
         onBlur={handleBlur}
         onFocus={handleFocus}
         onClick={handleClick}
