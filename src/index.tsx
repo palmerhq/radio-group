@@ -42,7 +42,7 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
       labelledBy,
       children,
       value,
-      autoFocus = false,
+      autoFocus = true,
       as: Comp = 'div',
       ...props
     },
@@ -69,7 +69,7 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
         setChecked,
         autoFocus,
       }),
-      [otherRadioValues, setChecked, autoFocus, otherRadioValues, value]
+      [otherRadioValues, setChecked, autoFocus, value]
     );
     return (
       <RadioGroupContext.Provider value={ctx}>
@@ -78,6 +78,7 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
           role="radiogroup"
           aria-labelledby={labelledBy}
           data-palmerhq-radio-group
+          {...props}
         >
           {children}
         </Comp>
@@ -92,10 +93,10 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
 ) {
   const [focus, setFocus] = React.useState(false);
   const ref = React.useRef<HTMLDivElement | null>(null);
-
+  const { onBlur, onFocus } = props;
   const ctx = React.useContext(RadioGroupContext);
   const { otherRadioValues, value, setChecked, autoFocus } = ctx;
-  const index = otherRadioValues.findIndex(i => i == props.value);
+  const index = otherRadioValues.findIndex(i => i === props.value);
   const count = otherRadioValues.length - 1;
   const isCurrentRadioSelected = value === props.value;
   const valueProp = props.value;
@@ -133,7 +134,7 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
       switch (event.keyCode) {
         case codes.SPACE:
         case codes.RETURN:
-          setChecked(props.value);
+          setChecked(valueProp);
           flag = true;
           break;
         case codes.UP:
@@ -155,26 +156,32 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
         event.preventDefault();
       }
     },
-    [children, otherRadioValues, props.value, count, index]
+    [isFirstRadioOption, setChecked, otherRadioValues, count, index, valueProp]
   );
 
   const handleClick = React.useCallback(() => {
-    setChecked(props.value);
-  }, [props.value]);
+    setChecked(valueProp);
+  }, [setChecked, valueProp]);
 
-  const handleBlur = React.useCallback(e => {
-    if (props.onBlur) {
-      props.onBlur(e);
-    }
-    setFocus(false);
-  }, []);
+  const handleBlur = React.useCallback(
+    e => {
+      if (onBlur) {
+        onBlur(e);
+      }
+      setFocus(false);
+    },
+    [onBlur]
+  );
 
-  const handleFocus = React.useCallback(e => {
-    if (props.onFocus) {
-      props.onFocus(e);
-    }
-    setFocus(true);
-  }, []);
+  const handleFocus = React.useCallback(
+    e => {
+      if (onFocus) {
+        onFocus(e);
+      }
+      setFocus(true);
+    },
+    [onFocus]
+  );
 
   const noValueSelected = !value;
   const tabIndex =
