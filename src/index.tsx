@@ -17,6 +17,8 @@ export interface RadioGroupCtx<V, Siblings = V[]> {
   otherRadioValues: Siblings;
   setChecked: (value: any) => void;
   autoFocus: boolean;
+  touched: boolean;
+  setTouched: (value: boolean) => void;
 }
 
 const RadioGroupContext = React.createContext<RadioGroupCtx<any>>({} as any);
@@ -42,15 +44,16 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
       labelledBy,
       children,
       value,
-      autoFocus = true,
+      autoFocus = false,
       as: Comp = 'div',
       ...props
     },
     ref
   ) {
     const { onChange } = props;
+    const [touched, setTouched] = React.useState(false);
     const setChecked = React.useCallback(
-      v => {
+      (v) => {
         if (onChange) {
           onChange(v);
         }
@@ -60,7 +63,7 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
 
     const otherRadioValues = React.Children.map<any, any>(
       children,
-      child => child.props.value
+      (child) => child.props.value
     );
     const ctx = React.useMemo(
       () => ({
@@ -68,8 +71,10 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
         otherRadioValues,
         setChecked,
         autoFocus,
+        touched,
+        setTouched,
       }),
-      [otherRadioValues, setChecked, autoFocus, value]
+      [otherRadioValues, setChecked, autoFocus, value, touched, setTouched]
     );
     return (
       <RadioGroupContext.Provider value={ctx}>
@@ -95,26 +100,33 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
   const ref = React.useRef<HTMLDivElement | null>(null);
   const { onBlur, onFocus } = props;
   const ctx = React.useContext(RadioGroupContext);
-  const { otherRadioValues, value, setChecked, autoFocus } = ctx;
-  const index = otherRadioValues.findIndex(i => i === props.value);
+  const {
+    otherRadioValues,
+    value,
+    setChecked,
+    autoFocus,
+    touched,
+    setTouched,
+  } = ctx;
+  const index = otherRadioValues.findIndex((i) => i === props.value);
   const count = otherRadioValues.length - 1;
   const isCurrentRadioSelected = value === props.value;
   const valueProp = props.value;
   React.useEffect(() => {
-    if (autoFocus && value === valueProp) {
+    if ((autoFocus || touched) && value === valueProp) {
       if (maybeOuterRef && maybeOuterRef.current !== null) {
         maybeOuterRef.current.focus();
       } else if (ref.current !== null) {
         ref.current.focus();
       }
     }
-  }, [value, valueProp, maybeOuterRef, autoFocus]);
+  }, [value, valueProp, maybeOuterRef, autoFocus, touched]);
 
   const isFirstRadioOption = index === 0;
   const handleKeyDown = React.useCallback(
-    event => {
+    (event) => {
       event.persist();
-      var flag = false;
+      let flag = false;
       function setPrevious() {
         if (isFirstRadioOption) {
           setChecked(otherRadioValues[count]);
@@ -151,12 +163,22 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
           break;
       }
 
+      setTouched(true);
+
       if (flag) {
         event.stopPropagation();
         event.preventDefault();
       }
     },
-    [isFirstRadioOption, setChecked, otherRadioValues, count, index, valueProp]
+    [
+      isFirstRadioOption,
+      setChecked,
+      otherRadioValues,
+      count,
+      index,
+      valueProp,
+      setTouched,
+    ]
   );
 
   const handleClick = React.useCallback(() => {
@@ -164,17 +186,18 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
   }, [setChecked, valueProp]);
 
   const handleBlur = React.useCallback(
-    e => {
+    (e) => {
       if (onBlur) {
         onBlur(e);
       }
       setFocus(false);
+      setTouched(true);
     },
-    [onBlur]
+    [onBlur, setTouched]
   );
 
   const handleFocus = React.useCallback(
-    e => {
+    (e) => {
       if (onFocus) {
         onFocus(e);
       }
@@ -198,7 +221,7 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
       onKeyDown={handleKeyDown}
       data-palmerhq-radio
       data-palmerhq-radio-focus={focus}
-      ref={el => {
+      ref={(el) => {
         if (maybeOuterRef) {
           maybeOuterRef.current = el;
         }
