@@ -53,7 +53,7 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
     const { onChange } = props;
     const [touched, setTouched] = React.useState(false);
     const setChecked = React.useCallback(
-      (v) => {
+      v => {
         if (onChange) {
           onChange(v);
         }
@@ -63,7 +63,7 @@ export const RadioGroup = forwardRefWithAs<RadioGroupProps, 'div'>(
 
     const otherRadioValues = React.Children.map<any, any>(
       children,
-      (child) => child.props.value
+      child => child.props.value
     );
     const ctx = React.useMemo(
       () => ({
@@ -124,7 +124,7 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
 
   const isFirstRadioOption = index === 0;
   const handleKeyDown = React.useCallback(
-    (event) => {
+    event => {
       event.persist();
       let flag = false;
       function setPrevious() {
@@ -186,7 +186,7 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
   }, [setChecked, valueProp]);
 
   const handleBlur = React.useCallback(
-    (e) => {
+    e => {
       if (onBlur) {
         onBlur(e);
       }
@@ -197,7 +197,7 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
   );
 
   const handleFocus = React.useCallback(
-    (e) => {
+    e => {
       if (onFocus) {
         onFocus(e);
       }
@@ -221,7 +221,7 @@ export const Radio = forwardRefWithAs<RadioProps<any>, 'div'>(function Radio(
       onKeyDown={handleKeyDown}
       data-palmerhq-radio
       data-palmerhq-radio-focus={focus}
-      ref={(el) => {
+      ref={el => {
         if (maybeOuterRef) {
           maybeOuterRef.current = el;
         }
